@@ -1,10 +1,14 @@
 import express, { Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
-import logger from 'loglevel' // this is all it takes to enable async/await for express middleware
+import logger from 'loglevel'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 import { getRoutes } from './routes' // all the routes for my app are retrieved from the src/routes/index.js module
+import { connectDB } from './db'
 
-function startServer({ port = process.env.PORT || 4500 } = {}) {
+function startServer({ port = process.env.PORT } = {}) {
   const app = express()
 
   app.use('/api', getRoutes()) // I mount my entire app to the /api route (or you could just do "/" if you want)
@@ -13,6 +17,7 @@ function startServer({ port = process.env.PORT || 4500 } = {}) {
 
   app.listen(port, () => {
     logger.info(`Listening on ${port}`)
+    connectDB()
   })
 }
 

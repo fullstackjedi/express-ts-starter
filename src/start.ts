@@ -5,8 +5,8 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-import { getRoutes } from './routes' // all the routes for my app are retrieved from the src/routes/index.js module
-import { connectDB } from './utils/db'
+import { getRoutes } from '@routes/index' // all the routes for my app are retrieved from the src/routes/index.js module
+import { connectDB } from '@utils/db'
 
 function startServer({ port = process.env.PORT } = {}) {
   const app = express()
